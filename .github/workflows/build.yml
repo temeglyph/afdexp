@@ -1,0 +1,16 @@
+name: Build Exploit
+on: [push]
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1
+      - name: Compile
+        run: msbuild "Windows_AFD_LPE_CVE-2023-21768.sln" /p:Configuration=Release /p:Platform=x64
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: AfdBinary
+          path: x64/Release/*.exe
