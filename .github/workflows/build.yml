@@ -17,4 +17,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: AfdBinary
-          path: Windows_AFD_LPE_CVE-2023-21768/x64/Release/*.exe
+          path: "**/Release/*.exe"
+          if-no-files-found: error
