@@ -4,13 +4,17 @@ jobs:
   build:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
       - name: Setup MSBuild
-        uses: microsoft/setup-msbuild@v1
-      - name: Compile
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Compile Exploit
         run: msbuild "Windows_AFD_LPE_CVE-2023-21768.sln" /p:Configuration=Release /p:Platform=x64
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v3
+
+      - name: Upload Finished Payload
+        uses: actions/upload-artifact@v4
         with:
           name: AfdBinary
-          path: x64/Release/*.exe
+          path: Windows_AFD_LPE_CVE-2023-21768/x64/Release/*.exe
