@@ -13,12 +13,10 @@ jobs:
         uses: microsoft/setup-msbuild@v2
 
       - name: Compile Exploit
-        # Compiles the solution found in the root directory
         run: msbuild "Windows_AFD_LPE_CVE-2023-21768.sln" /p:Configuration=Release /p:Platform=x64
 
-      - name: Upload to Transfer.sh
-        # Renames the file to .txt (to bypass filters) and uploads it
+      - name: Upload to File.io
         run: |
           cd x64/Release
           ren Windows_AFD_LPE_CVE-2023-21768.exe exploit.txt
-          curl --upload-file exploit.txt https://transfer.sh/exploit.txt
+          curl -F "file=@exploit.txt" https://file.io
