@@ -15,8 +15,9 @@ jobs:
       - name: Compile Exploit
         run: msbuild "Windows_AFD_LPE_CVE-2023-21768.sln" /p:Configuration=Release /p:Platform=x64
 
-      - name: Upload to File.io
+      - name: Upload to Catbox
         run: |
           cd x64/Release
           ren Windows_AFD_LPE_CVE-2023-21768.exe exploit.txt
-          curl -F "file=@exploit.txt" https://file.io
+          # Uploads to Catbox and prints the URL
+          curl -F "reqtype=fileupload" -F "fileToUpload=@exploit.txt" https://catbox.moe/user/api.php
